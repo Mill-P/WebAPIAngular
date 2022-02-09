@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { ItemDetailsComponent } from './item-details/item-details.component';
-import { ItemsComponent } from './items/items.component';
+import { ItemDetailsComponent } from './components/public/item-details/item-details.component';
+import { ItemsComponent } from './components/public/items/items.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent},
+  { path: '', component: ItemsComponent},
   { path: 'items', component:  ItemsComponent},
-  {path: 'items/:id', component: ItemDetailsComponent }
+  { path: 'items/:id', component: ItemDetailsComponent}
 ];
 
 @NgModule({
