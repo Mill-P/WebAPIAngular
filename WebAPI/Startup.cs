@@ -17,6 +17,8 @@ namespace WebAPI
 {
     public class Startup
     {
+
+        readonly string my_eshop_AllowSpecificOrigins = "my_eshop_AllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +33,14 @@ namespace WebAPI
 
             services.AddDbContext<ItemContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(my_eshop_AllowSpecificOrigins, builder => builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +54,8 @@ namespace WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(my_eshop_AllowSpecificOrigins);
 
             app.UseAuthorization();
 
